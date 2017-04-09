@@ -332,7 +332,7 @@ fields.deserializePrimitive = function(fieldType, buffer, bufferOffset) {
   var fieldValue = null;
 
   if (fieldType === 'bool') {
-    fieldValue = buffer.readUInt8(bufferOffset);
+    fieldValue = (buffer.readUInt8(bufferOffset) === 1);
   }
   else if (fieldType === 'int8') {
     fieldValue = buffer.readInt8(bufferOffset);
