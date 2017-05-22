@@ -29,6 +29,7 @@ var timeUtils = require('../utils/time_utils.js');
 var msgUtils = require('../utils/message_utils.js');
 var EventEmitter = require('events');
 var GoalID = null;
+var Header = null;
 
 var ActionClient = function (_EventEmitter) {
   _inherits(ActionClient, _EventEmitter);
@@ -40,6 +41,10 @@ var ActionClient = function (_EventEmitter) {
 
     if (GoalID === null) {
       GoalID = msgUtils.requireMsgPackage('actionlib_msgs').msg.GoalID;
+    }
+
+    if (Header === null) {
+      Header = msgUtils.requireMsgPackage('actionlib_msgs').msg.Header;
     }
 
     _this._actionType = options.type;
@@ -116,17 +121,17 @@ var ActionClient = function (_EventEmitter) {
     key: 'sendGoal',
     value: function sendGoal(goal) {
       if (!goal.goal_id) {
-        goal.goal_id = {
+        goal.goal_id = new GoalID({
           stamp: timeUtils.now(),
           id: this.generateGoalId()
-        };
+        });
       }
       if (!goal.header) {
-        goal.header = {
+        goal.header = new Header({
           seq: this._goalSeqNum++,
           stamp: goal.goal_id.stamp,
           frame_id: 'auto-generated'
-        };
+        });
       }
       var goalId = goal.goal_id.id;
       this._goals[goalId] = goal;
