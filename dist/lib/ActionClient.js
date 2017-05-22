@@ -61,7 +61,7 @@ var ActionClient = function (_EventEmitter) {
       _this._handleFeedback(msg);
     }, { queueSize: 1 });
 
-    _this._statusSub = nh.subscribe(_this._actionServer + '/result', _this._actionType + 'Result', function (msg) {
+    _this._resultSub = nh.subscribe(_this._actionServer + '/result', _this._actionType + 'Result', function (msg) {
       _this._handleResult(msg);
     }, { queueSize: 1 });
 
