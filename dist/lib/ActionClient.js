@@ -44,7 +44,7 @@ var ActionClient = function (_EventEmitter) {
     }
 
     if (Header === null) {
-      Header = msgUtils.requireMsgPackage('actionlib_msgs').msg.Header;
+      Header = msgUtils.requireMsgPackage('std_msgs').msg.Header;
     }
 
     _this._actionType = options.type;
